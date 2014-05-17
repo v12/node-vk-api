@@ -1,6 +1,6 @@
 {
     "name":         "vk-dirty-api",
-    "version":      "0.0.1",
+    "version":      "0.0.2",
     "description":  "Wrapper for using VK API within your project as a Standalone application",
     "main":         "index.js",
     "scripts":      {
