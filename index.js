@@ -1,13 +1,15 @@
 var request = require('request'),
     cheerio = require('cheerio'),
     url = require('url'),
-    extend = require('xtend');
+    extend = require('xtend'),
+    util = require('util'),
+    EventEmitter = require('events').EventEmitter;
 
 function authorize(appId, login, pass, cb) {
     var cookieJar = request.jar();
 
-    this.access_token = false;
     var self = this;
+    self.access_token = false;
 
     request = request.defaults({
         jar:                cookieJar,
@@ -93,6 +95,8 @@ function authorize(appId, login, pass, cb) {
 
                             self.access_token = access_token[1];
                             cb(null, self.access_token);
+
+                            self.emit('auth', self.access_token);
                         });
                     })
                 });
@@ -130,7 +134,7 @@ function authorize(appId, login, pass, cb) {
         cb(null, form.attr('action'));
     }
 
-    function api(method, options, cb) {
+    self.api = function api(method, options, cb) {
         if (typeof options === 'function') {
             cb = options;
             options = {};
@@ -153,9 +157,10 @@ function authorize(appId, login, pass, cb) {
         });
 
         return this;
-    }
+    };
 
-    return api;
+    return self;
 }
 
+util.inherits(authorize, EventEmitter);
 module.exports = exports = authorize;
