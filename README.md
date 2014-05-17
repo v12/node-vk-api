@@ -26,11 +26,11 @@ var vk = new vkApi(
     function (err, access_token) {
         if(err)
             return console.error('Unable to authenticate', err);
-        console.log('Successfuly authenticated / access_token:', access_token);
+        console.log('Successfully authenticated / access_token:', access_token);
     });
     
 vk.on('auth', function (token) {
-    vk('users.get', { user_ids: 1 }, function (err, info) {
+    vk.api('users.get', { user_ids: 1 }, function (err, info) {
         if(err)
             return console.error('Unable to complete request', err);
         console.log(info);
