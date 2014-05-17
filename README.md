@@ -56,6 +56,9 @@ This event is emitted when authorization is successful and access token is retur
 - *error* `Error` 
 This event is triggered when error happens. Currently it is called only when unable to get `access_token` 
 
+## Changelog
+0.0.2 - constructor now emits events on successful authorization and error
+
 ## ToDo
 
 - [ ] Error handling
