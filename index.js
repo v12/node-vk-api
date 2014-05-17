@@ -153,7 +153,20 @@ function authorize(appId, login, pass, cb) {
                     })
             })
         }, function (err, r, json) {
-            cb(err, JSON.parse(json));
+            if(err)
+                return cb(err);
+
+            var response = JSON.parse(json);
+            if('error' in response) {
+                var e = new Error(response.error.error_msg);
+                e.code = response.error.error_code;
+                return cb(e);
+            }
+
+            if((!'response' in response))
+                return cb(new Error('No `response` field in API response'));
+
+            cb(null, response.response);
         });
 
         return this;
