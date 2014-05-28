@@ -14,15 +14,13 @@ Sometimes it is needed to use VK API directly from the Node app, however, using 
 var vkApi = require('vk-dirty-api');
 
 var credentials = {
-    app_id:   0,
-    user:     'user@example.com', // could be phone number as well
-    password: 'your_super_secret_password'
+    client_id: 0,
+    user:      'user@example.com', // could be phone number as well
+    password:  'your_super_secret_password'
 };
 
 var vk = new vkApi(
-    credentials.app_id,
-    credentials.user,
-    credentials.password,
+    credentials,
     function (err, access_token) {
         if(err)
             return console.error('Unable to authenticate', err);
@@ -64,14 +62,15 @@ This event is triggered when error happens. Currently it is called only when una
 - [xtend](https://www.npmjs.org/package/xtend) - extending JavaScript objects
 
 ## Changelog
+- 1.0.0 - added another way of instantiating API (both parameter sets are available)
 - 0.0.3 - VK API response is now properly parsed, returning `Error` in callback with error code and description when method execution has failed ([list of API errors](https://vk.com/dev/errors))
 - 0.0.2 - constructor now emits events on successful authorization and error
 
 ## ToDo
 
-- [ ] Error handling
+- [x] Error handling
     - [x] Error on authorization fail
     - [x] Handling error in API response
-    - [ ] Invalid parameters usage in module methods
+    - [x] Invalid parameters usage in module methods
 - [ ] Caching `access_token`
 - [ ] Choosing the version of VK API to use in requests
