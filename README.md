@@ -54,7 +54,7 @@ This event is emitted when authorization is successful and access token is retur
 
 #### Event: 'error'
 - **error** `Error` 
-This event is triggered when error happens. Currently it is called only when unable to get `access_token` 
+This event is triggered when error happens when initializing VK API.
 
 ## Dependencies
 - [request](https://www.npmjs.org/package/request) - making requests to VK API
