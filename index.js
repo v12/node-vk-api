@@ -14,7 +14,7 @@ function authorize(appId, login, pass, cb) {
     request = request.defaults({
         jar:                cookieJar,
         headers:            {
-            'User-Agent': 'nodejs-vk-api/0.1'
+            'User-Agent': 'nodejs-vk-api/1.0'
         },
         followAllRedirects: true
     });
