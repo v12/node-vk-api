@@ -15,8 +15,8 @@ var vkApi = require('vk-dirty-api');
 
 var credentials = {
     client_id: 0,
-    user:      'user@example.com', // could be phone number as well
-    password:  'your_super_secret_password'
+    login:     'user@example.com', // could be phone number as well
+    pass:      'your_super_secret_password'
 };
 
 var vk = new vkApi(
