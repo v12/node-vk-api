@@ -4,7 +4,7 @@ var request = require('request'),
     extend = require('xtend'),
     util = require('util'),
     EventEmitter = require('events').EventEmitter;
-
+    
 function authorize(appId, login, pass, cb) {
     var cookieJar = request.jar();
 
@@ -61,6 +61,10 @@ function authorize(appId, login, pass, cb) {
         });
     }
 
+    if (params.hasOwnProperty('cacheToken')) {
+        this.cacheToken = params.cacheToken;
+    }
+
     // in case if only EventEmitter is used
     if (typeof cb !== 'function')
         cb = function () {};
@@ -82,8 +86,9 @@ function authorize(appId, login, pass, cb) {
         errorCallback(e);
         return self;
     }
-    else
-        request({
+    else {
+        var getToken = function () {
+            request({
                 url: url.format({
                     protocol: 'https',
                     host:     'oauth.vk.com',
@@ -132,6 +137,12 @@ function authorize(appId, login, pass, cb) {
                                     return errorCallback(new Error('Invalid access_token'));
 
                                 self.access_token = access_token[1];
+
+                                // Cache token
+                                if (self.cacheToken) {
+                                    self.cacheToken.setToken(self.access_token);
+                                }
+
                                 cb(null, self.access_token);
 
                                 self.emit('auth', self.access_token);
@@ -139,6 +150,23 @@ function authorize(appId, login, pass, cb) {
                         })
                     });
             });
+        }
+
+        // Getting token, if cache is set, then get token from storage
+        if (this.cacheToken) {
+            this.cacheToken.getToken(function (token) {
+                if (token) {
+                    self.access_token = token;
+                    
+                    self.emit('auth', self.access_token);
+                } else {
+                    getToken();
+                }
+            })
+        } else {
+            getToken();
+        }
+    }
 
     function getLoginFormData(html) {
         var $ = cheerio.load(html),
