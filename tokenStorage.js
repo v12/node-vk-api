@@ -5,18 +5,15 @@
 var fs = require('fs');
 
 function TokenStorage(storageFilePath) {
-	this.storagePathFile = storageFilePath || __dirname +'/local/token.txt';
-	this.authData;
+	this.storagePathFile = storageFilePath || process.cwd() +'/.vk-token.txt';
 
 	this._checkFile = function (filepath, callback) {
-		fs.exists(filepath, function (status) {
-			if (status) {
-				callback();
+		fs.access(filepath, fs.F_OK, function (err) {
+			if (err) {
+				callback(err);
 			} else {
 				fs.writeFile(filepath, '', function (err) {
-					if (err) throw err;
-
-					callback();
+					callback(err);
 				});
 			}
 		});
@@ -30,27 +27,32 @@ TokenStorage.prototype.setFilePath = function (storageFilePath) {
 TokenStorage.prototype.getToken = function (callback) {
 	var self = this;
 
-	this._checkFile(this.storagePathFile, function () {
-		fs.readFile(self.storagePathFile, function (err, token) {
-			if (err) throw err;
-
-			callback(token.toString());
-		});
+	this._checkFile(this.storagePathFile, function (err) {
+		if (err) {
+			callback(err);
+		} else {
+			fs.readFile(self.storagePathFile, function (err, token) {
+				callback(err, token.toString());
+			});
+		}
 	})
 };
 
 TokenStorage.prototype.setToken = function (token, callback) {
 	var self = this;
 
-	this.getToken(function (tokenStorage) {
-		if (tokenStorage != token) {
-			fs.writeFile(self.storagePathFile, token, function (err) {
-				if (err) throw err;
+	this.getToken(function (err, tokenStorage) {
+		if (err) {
+			callback(err);
+		} else {
+			if (tokenStorage !== token) {
+				fs.writeFile(self.storagePathFile, token, function (err) {
 
-				if (callback) callback();
-			});
+					if (callback) callback(err);
+				});
+			}
 		}
 	});
-}
+};
 
 module.exports = TokenStorage;
