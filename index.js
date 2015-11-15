@@ -133,19 +133,29 @@ function authorize(appId, login, pass, cb) {
                                 method: 'POST'
                             }, function (err, res) {
                                 var access_token = /access_token=([a-f0-9]+)/.exec(res.request.uri.hash);
+
                                 if (!access_token[1])
                                     return errorCallback(new Error('Invalid access_token'));
 
                                 self.access_token = access_token[1];
 
+                                var successfulResult = function () {
+                                    cb(null, self.access_token);
+
+                                    self.emit('auth', self.access_token);
+                                };
+
                                 // Cache token
                                 if (self.cacheToken) {
-                                    self.cacheToken.setToken(self.access_token);
+                                    self.cacheToken.setToken(self.access_token, function (err) {
+                                        if (err)
+                                            errorCallback(new Error(err));
+                                        else
+                                            successfulResult();
+                                    });
+                                } else {
+                                    successfulResult();
                                 }
-
-                                cb(null, self.access_token);
-
-                                self.emit('auth', self.access_token);
                             });
                         })
                     });
