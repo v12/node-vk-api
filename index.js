@@ -160,12 +160,12 @@ function authorize(appId, login, pass, cb) {
                         })
                     });
             });
-        }
+        };
 
         // Getting token, if cache is set, then get token from storage
         if (this.cacheToken) {
-            this.cacheToken.getToken(function (token) {
-                if (token) {
+            this.cacheToken.getToken(function (err, token) {
+                if (!err) {
                     self.access_token = token;
                     
                     self.emit('auth', self.access_token);
