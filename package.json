@@ -18,7 +18,7 @@
     "vk",
     "api"
   ],
-  "author": "v6 <nikita.v6+npmjs@icloud.com>",
+  "author": "Nikita <dr.evil@krtn.eu>",
   "license": "MIT",
   "dependencies": {
     "request": "^2.34.0",
