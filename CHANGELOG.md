@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+* Support for token caching (https://github.com/v12/node-vk-api/pull/1)
+* Fix possible bug when events were emitted before listeners were attached
+* Default User-Agent used now has actual package version
+
 ## 1.0.0
 * Added another way of instantiating API (both parameter sets are available)
 
