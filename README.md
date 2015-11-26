@@ -60,8 +60,3 @@ This event is triggered when error happens when initializing VK API.
 - [request](https://www.npmjs.org/package/request) - making requests to VK API
 - [cheerio](https://www.npmjs.org/package/cheerio) - parsing auth pages
 - [xtend](https://www.npmjs.org/package/xtend) - extending JavaScript objects
-
-## Changelog
-- 1.0.0 - added another way of instantiating API (both parameter sets are available)
-- 0.0.3 - VK API response is now properly parsed, returning `Error` in callback with error code and description when method execution has failed ([list of API errors](https://vk.com/dev/errors))
-- 0.0.2 - constructor now emits events on successful authorization and error
