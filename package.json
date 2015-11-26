@@ -1,28 +1,28 @@
 {
-    "name":         "vk-dirty-api",
-    "version":      "1.0.0",
-    "description":  "Wrapper for using VK API within your project as a Standalone application",
-    "main":         "index.js",
-    "scripts":      {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository":   {
-        "type": "git",
-        "url":  "git://github.com/v12/node-vk-api.git"
-    },
-    "keywords":     [
-        "vk",
-        "vkontakte",
-        "vk.com",
-        "api",
-        "vk",
-        "api"
-    ],
-    "author":       "v6 <nikita.v6+npmjs@icloud.com>",
-    "license":      "MIT",
-    "dependencies": {
-        "request": "^2.34.0",
-        "xtend":   "^3.0.0",
-        "cheerio": "^0.16.0"
-    }
+  "name": "vk-dirty-api",
+  "version": "1.0.0",
+  "description": "Wrapper for using VK API within your project as a Standalone application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/v12/node-vk-api.git"
+  },
+  "keywords": [
+    "vk",
+    "vkontakte",
+    "vk.com",
+    "api",
+    "vk",
+    "api"
+  ],
+  "author": "v6 <nikita.v6+npmjs@icloud.com>",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.34.0",
+    "xtend": "^3.0.0",
+    "cheerio": "^0.16.0"
+  }
 }
