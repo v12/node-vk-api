@@ -4,7 +4,7 @@
   "description": "Wrapper for using VK API within your project as a Standalone application",
   "main": "lib/vk-dirty-api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -t 30000"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,9 @@
     "request": "^2.34.0",
     "xtend": "^3.0.0",
     "cheerio": "^0.16.0"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4"
   }
 }
