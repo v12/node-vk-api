@@ -1,3 +1,5 @@
+'use strict';
+
 var mocha = require('mocha');
 var chai  = require('chai');
 
@@ -7,7 +9,7 @@ describe('vk-dirty-api', function () {
     before(function (cb) {
         var self = this;
 
-        self.VK  = require(__dirname + '/..');
+        self.VK = require(__dirname + '/..');
 
         self.api = new self.VK({
                 client_id: process.env.VK_APP_ID,
@@ -29,5 +31,18 @@ describe('vk-dirty-api', function () {
 
     it('should receive access token when successfully authorized', function () {
         expect(this.token).to.be.a('string');
+    });
+
+    describe('API request', function () {
+        it('should be completed successfully', function (cb) {
+            this.api.api('account.getInfo', function (err, res) {
+                if (err) return cb(err);
+
+                expect(res).to.be.an('object');
+                expect(res).to.have.any.key('https_required');
+
+                cb();
+            });
+        });
     });
 });
