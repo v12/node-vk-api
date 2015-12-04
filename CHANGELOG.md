@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.1
+* Fix error not being thrown when request error happens (closes https://github.com/v12/node-vk-api/issues/3)
+
 ## 1.1.0
 * Support for token caching (https://github.com/v12/node-vk-api/pull/1)
 * Fix possible bug when events were emitted before listeners were attached
