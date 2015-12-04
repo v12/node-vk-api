@@ -33,6 +33,24 @@ describe('vk-dirty-api', function () {
         expect(this.token).to.be.a('string');
     });
 
+    describe('errors', function () {
+        [ 'VKAPIError', 'VKAuthError' ].forEach(e => it('should expose custom error ' + e, function () {
+            expect(this.VK).to.respondTo(e);
+            expect(this.VK).to.itself.respondTo(e);
+        }));
+
+        describe('VKAPIError', function () {
+            it('should have error_code and error_msg attributes', function () {
+                var code = 1,
+                    msg  = 'Dummy error',
+                    e    = new this.VK.VKAPIError(code, msg);
+
+                expect(e).to.have.property('error_code', code);
+                expect(e).to.have.property('error_msg', msg);
+            });
+        });
+    });
+
     describe('API request', function () {
         it('should be completed successfully', function (cb) {
             this.api.api('account.getInfo', function (err, res) {
