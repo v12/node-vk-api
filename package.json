@@ -4,7 +4,8 @@
   "description": "Wrapper for using VK API within your project as a Standalone application",
   "main": "lib/vk-dirty-api.js",
   "scripts": {
-    "test": "mocha -t 30000 --compilers js:babel-register"
+    "test": "mocha -t 30000 --compilers js:babel-register",
+    "docs": "jsdoc -c .jsdocrc"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "babel-plugin-transform-es2015-arrow-functions": "^6.1.18",
     "babel-plugin-transform-es2015-shorthand-properties": "^6.1.18",
     "chai": "^3.4.1",
+    "jsdoc": "^3.4.0",
     "mocha": "^2.3.4"
   }
 }

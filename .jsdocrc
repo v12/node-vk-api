@@ -1,0 +1,17 @@
+{
+    "source": {
+        "include": [
+            "./lib"
+        ],
+        "includePattern": ".+\\.js(doc)?$"
+    },
+    "opts": {
+        "destination": "./docs/",
+        "recurse": true,
+        "readme": "./README.md",
+        "package": "./package.json"
+    },
+    "plugins": [
+        "plugins/markdown"
+    ]
+}
