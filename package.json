@@ -30,9 +30,9 @@
     "xtend": "^4.0.1"
   },
   "devDependencies": {
-    "babel-core": "^6.3.2",
-    "babel-plugin-transform-es2015-arrow-functions": "^6.1.18",
-    "babel-plugin-transform-es2015-shorthand-properties": "^6.1.18",
+    "babel-core": "^6.3.17",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.3.13",
+    "babel-plugin-transform-es2015-shorthand-properties": "^6.3.13",
     "chai": "^3.4.1",
     "jsdoc": "^3.4.0",
     "mocha": "^2.3.4"
