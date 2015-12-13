@@ -1,5 +1,7 @@
 # vk-dirty-api
 
+[![Build Status](https://travis-ci.org/v12/node-vk-api.svg)](https://travis-ci.org/v12/node-vk-api) [![Dependency Status](https://david-dm.org/v12/node-vk-api.svg)](https://david-dm.org/v12/node-vk-api)
+
 VK API for Node.js with authentication using login and password (the dirty way)
 
 Sometimes it is needed to use VK API directly from the Node app, however, using either signing requests or OAuth allows access only to server-side methods. In order to 'overcome' this limitation, this dirty ~~if you know what I mean~~ way of getting access_token for VK API was developed
