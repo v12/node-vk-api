@@ -14,7 +14,8 @@ describe('vk-dirty-api', function () {
         self.api = new self.VK({
                 client_id: process.env.VK_APP_ID,
                 login:     process.env.VK_LOGIN,
-                pass:      process.env.VK_PASS
+                pass:      process.env.VK_PASS,
+                phone:     process.env.VK_PHONE
             },
             function (err, access_token) {
                 if (err) return cb(err);
