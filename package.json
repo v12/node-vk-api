@@ -5,7 +5,8 @@
   "main": "lib/vk-dirty-api.js",
   "scripts": {
     "test": "mocha -t 30000 --compilers js:babel-register",
-    "docs": "jsdoc -c .jsdocrc"
+    "docs": "jsdoc -c .jsdocrc",
+    "prepublish": "eslint ./lib && npm test"
   },
   "repository": {
     "type": "git",
