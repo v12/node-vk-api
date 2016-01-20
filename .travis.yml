@@ -1,4 +1,15 @@
+sudo: false
+
 language: node_js
 
 node_js:
-  - "node"
+  - node
+
+deploy:
+  provider: npm
+  email: dr.evil@krtn.eu
+  api_key:
+    secure: UqkQhltzzEzHJ1le8PRlGazywsUsfvfoj44SQ8WT792OZ/HdncbE1WYtP/OaV0IXvk3US5wWEs2WDnfBkHDl8RSzcCbNe/KdY3aqkBBMOCcy9or8+x0XEG2Ji9tFdKwNiwH3BkSzrIxERyyMoeUA6QMHiwQd3wSwyAUFyK2EeRI=
+  on:
+    tags: true
+    repo: v12/node-vk-api
