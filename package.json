@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha -t 30000 --compilers js:babel-register",
     "docs": "jsdoc -c .jsdocrc",
-    "prepublish": "eslint ./lib && npm test"
+    "prepublish": "eslint ./lib && npm test",
+    "coverage": "istanbul cover _mocha"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "chai": "^3.4.1",
     "chai-as-promised": "^5.1.0",
     "eslint": "^1.10.3",
+    "istanbul": "^0.4.2",
     "jsdoc": "^3.4.0",
     "mocha": "^2.3.4"
   },
