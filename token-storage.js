@@ -22,10 +22,10 @@ TokenStorage.prototype.getToken = function () { return fs.readAsync(this.storage
 
 TokenStorage.prototype.setToken = function (token) {
     return this.getToken()
-        .then(function (storedToken) {
+        .then(storedToken => {
             if (storedToken !== token)
                 return fs.writeAsync(this.storageFile, token);
-        }.bind(this));
+        });
 };
 
 module.exports = TokenStorage;
