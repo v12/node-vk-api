@@ -1,26 +1,170 @@
 'use strict';
 
-var mocha = require('mocha');
-var chai  = require('chai');
+var chai = require('chai');
+var nock = require('nock');
+
+nock.disableNetConnect();
 
 chai.use(require('chai-as-promised'));
 
 var expect = chai.expect;
 
-describe('vk-dirty-api', function () {
-    var vk = require(__dirname + '/..');
+const config = {
+    client_id: 1,
+    login:     'john.doe@example.com',
+    pass:      'password',
+    phone:     '+74951234567'
+};
 
-    before(function () {
-        return vk.token({
-            client_id: process.env.VK_APP_ID,
-            login:     process.env.VK_LOGIN,
-            pass:      process.env.VK_PASS,
-            phone:     process.env.VK_PHONE
-        }).then(token => this.token = token);
+const allowLinkParams = {
+    act:           'grant_access',
+    client_id:     config.client_id,
+    settings:      2,
+    redirect_uri:  'https://oauth.vk.com/blank.html',
+    state:         'nostate',
+    response_type: 'token',
+    direct_hash:   '123456789123456789',
+    token_type:    0,
+    v:             '5.55',
+    display:       'mobile',
+    ip_h:          '123456789123456789',
+    hash:          '987654321987654321',
+    https:         1
+};
+
+function mockLoginPage () {
+    nock('https://oauth.vk.com')
+        .get('/authorize')
+        .query(true)
+        .replyWithFile(200, __dirname + '/html/login.html')
+}
+
+function mockAllowLinkPage (successful) {
+    let host = nock('https://login.vk.com');
+
+    host
+        .post('/')
+        .query({ act: 'login' })
+        .replyWithFile(200, __dirname + '/html/allow.html');
+
+    if (successful)
+        host
+            .post('/')
+            .query(allowLinkParams)
+            .reply(302, null, { Location: 'https://oauth.vk.com/blank.html#access_token=123' });
+}
+
+function mockSuccessfulLoginPage () {
+    nock('https://login.vk.com')
+        .post('/')
+        .query({ act: 'login' })
+        .reply(302, null, { Location: 'https://oauth.vk.com/blank.html#access_token=123' });
+}
+
+function mockBlankPage () {
+    nock('https://oauth.vk.com')
+        .get('/blank.html')
+        .reply(200, '');
+}
+
+function mockQuick () {
+    mockLoginPage();
+    mockBlankPage();
+    mockSuccessfulLoginPage();
+}
+
+function mockFull () {
+    mockLoginPage();
+    mockBlankPage();
+    mockAllowLinkPage(true);
+}
+
+describe('vk-dirty-api', function () {
+    const vk = require(__dirname + '/..');
+
+    afterEach(() => nock.cleanAll());
+
+    describe('initialization', function () {
+        it('should accept config object', function () {
+            mockQuick();
+            return expect(vk.token(config)).to.be.eventually.equal('123');
+        });
+
+        it('should accept (client_id, login, pass, phone)', function () {
+            mockQuick();
+            return expect(vk.token(config.client_id, config.login, config.pass, config.phone))
+                .to.be.eventually.equal('123');
+        });
+
+        it('should reject when invalid amount of arguments supplied', function () {
+            return expect(vk.token(123, '123')).to.be.eventually.rejected;
+        });
+
+        it('should reject when no configuration provided', function () {
+            return expect(vk.token()).to.be.eventually.rejected;
+        });
+
+        it('should reject when login is not a phone number and no phone is provided', function () {
+            return Promise.all([
+                expect(vk.token(config.client_id, config.login, config.pass)).to.be.eventually.rejected,
+                expect(vk.token({
+                    client_id: config.client_id,
+                    login:     config.login,
+                    pass:      config.pass
+                })).to.be.eventually.rejected
+            ]);
+        });
     });
 
     it('should receive access token when successfully authorized', function () {
-        expect(this.token).to.be.a('string');
+        mockFull();
+        return expect(vk.token(config)).to.be.eventually.equal('123');
+    });
+
+    it('should reject when invalid parameters supplied', function () {
+        return Promise.all([
+            expect(vk.token('invalid_id')).to.eventually.rejected,
+            expect(vk.token(config.client_id, '1', '123')).to.be.eventually.rejected,
+            expect(vk.token(config.client_id, null, '123')).to.be.eventually.rejected,
+            expect(vk.token(config.client_id, null, '123')).to.be.eventually.rejected,
+            expect(vk.token(config.client_id, config.login, null, config.phone)).to.be.eventually.rejected,
+            expect(vk.token(config.client_id, config.login, config.pass, 'no_phone')).to.be.eventually.rejected,
+            expect(vk.token(config.client_id, config.login, config.pass, null)).to.be.eventually.rejected,
+            expect(vk.token(Object.assign({}, config, { scope: { invalid: 'scope' } }))).to.be.eventually.rejected,
+            expect(vk.token(Object.assign({}, config, { tokenStorage: 'none' }))).to.be.eventually.rejected,
+            expect(vk.token(Object.assign({}, config, { tokenStorage: {} }))).to.be.eventually.rejected
+        ]);
+    });
+
+    it('should reject when received invalid login page', function () {
+        nock('https://oauth.vk.com')
+            .get('/authorize')
+            .query(true)
+            .reply(200, '');
+
+        return expect(vk.token(config)).to.be.eventually.rejectedWith('Unable to fetch login page');
+    });
+
+    it('should reject when unable to retrieve login page', function () {
+        nock('https://oauth.vk.com')
+            .get('/authorize')
+            .query(true)
+            .reply(500);
+
+        return expect(vk.token(config)).to.be.eventually.rejected;
+    });
+
+    it('should reject when no token received after successful login', function () {
+        mockLoginPage();
+        mockAllowLinkPage();
+        mockBlankPage();
+
+        nock('https://login.vk.com')
+            .post('/')
+            .query(allowLinkParams)
+            .reply(302, null, { Location: 'https://oauth.vk.com/blank.html#no_token' });
+
+        return expect(vk.token(config)).to.be.eventually.rejectedWith('Invalid access_token');
     });
 
     describe('errors', function () {
@@ -42,21 +186,55 @@ describe('vk-dirty-api', function () {
     });
 
     describe('API helper', function () {
+        before(function () {
+            this.apiHost = nock('https://api.vk.com');
+        });
+
         it('should return request function', function () {
-            expect(vk.api(this.token)).to.be.a('function');
+            expect(vk.api('123')).to.be.a('function');
         });
 
         describe('request', function () {
             before(function () {
-                this.request = vk.api(this.token);
+                this.request = vk.api('123');
             });
 
             it('should be completed successfully', function () {
+                const response = { https_required: true };
+
+                this.apiHost
+                    .get('/method/account.getInfo')
+                    .query({
+                        v:            '5.21',
+                        fields:       'https_required',
+                        access_token: '123'
+                    })
+                    .reply(200, { response });
+
                 return this.request('account.getInfo', { fields: 'https_required' })
                     .then(function (res) {
                         expect(res).to.be.an('object');
                         expect(res).to.have.keys('https_required');
                     });
+            });
+
+            it('should return VKAPIError when API error received', function () {
+                this.apiHost
+                    .get('/method/wall.get')
+                    .query({ v: '5.21', access_token: '123' })
+                    .reply(200, { error: { error_code: 5, error_msg: 'Test error message' } });
+
+                return expect(this.request('wall.get')).to.be.eventually.rejectedWith(vk.VKAPIError);
+            });
+
+            it('should return error for invalid API response', function () {
+                this.apiHost
+                    .get('/method/wall.get')
+                    .query({ v: '5.21', access_token: '123' })
+                    .reply(200, { invalid: 'response' });
+
+                return expect(this.request('wall.get'))
+                    .to.be.eventually.rejectedWith('No `response` field in API response')
             });
         });
     });
