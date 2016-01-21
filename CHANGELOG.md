@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.0
+* Add missing `phone` param for non-object configuration (now signature is `vk.token(client_id, login, pass, phone)`)
+* Add ESLint code style checks
+* Use `const` all the way down instead of `let`
+* Handle possible case when authorization is successful but `access_token` is missing in the response
+* Extended testing and test coverage details
+* Update `request-promise` to 2.0.0 from 1.0.2
+* Update `babel-core` to 6.4.0 from 6.3.17
+
 ## 2.0.0
 
 ### Breaking changes
