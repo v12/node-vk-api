@@ -33,7 +33,7 @@
     "xtend": "^4.0.1"
   },
   "devDependencies": {
-    "babel-core": "^6.3.17",
+    "babel-core": "^6.4.0",
     "babel-plugin-transform-es2015-arrow-functions": "^6.3.13",
     "babel-plugin-transform-es2015-shorthand-properties": "^6.3.13",
     "chai": "^3.4.1",
