@@ -6,12 +6,12 @@ node_js:
   - node
 
 before_script:
-  - npm install -g codeclimate-test-reporter
+  - npm install codeclimate-test-reporter
 
 script: npm run test:travis
 
 after_script:
-  - codeclimate < coverage/lcov.info
+  - node_modules/.bin/codeclimate < coverage/lcov.info
 
 addons:
   code_climate:
