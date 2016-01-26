@@ -5,6 +5,18 @@ language: node_js
 node_js:
   - node
 
+before_script:
+  - npm install -g codeclimate-test-reporter
+
+script: npm run test:travis
+
+after_script:
+  - codeclimate < coverage/lcov.info
+
+addons:
+  code_climate:
+    repo_token: 173d3001344045f7eac5633da1c1265c7dc95c98092c130230373034c9590b74
+
 deploy:
   provider: npm
   email: dr.evil@krtn.eu
