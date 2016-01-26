@@ -10,7 +10,7 @@ chai.use(require('chai-as-promised'));
 var expect = chai.expect;
 
 describe('parsers', function () {
-    var parsers = require('../lib/parsers');
+    var parsers = require('../src/parsers');
 
     before(function () {
         this.pages = {};

@@ -200,5 +200,5 @@ module.exports = Object.freeze({
      * @link {module:vkDirtyAPI/Errors.VKAPIError}
      */
     VKAPIError:   errors.VKAPIError,
-    TokenStorage: require('../token-storage')
+    TokenStorage: require('./token-storage')
 });
