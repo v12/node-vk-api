@@ -1,3 +1,9 @@
 .editorconfig
+.gitignore
+.idea
+.travis.yml
+
+docs/
 CHANGELOG.md
 coverage/
+src/
