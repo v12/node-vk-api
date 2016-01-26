@@ -80,7 +80,7 @@ function mockFull () {
 }
 
 describe('vk-dirty-api', function () {
-    const vk = require(__dirname + '/..');
+    const vk = require(__dirname + '/../src/vk-dirty-api');
 
     afterEach(() => nock.cleanAll());
 
