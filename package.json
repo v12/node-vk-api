@@ -4,10 +4,15 @@
   "description": "Wrapper for using VK API within your project as a Standalone application",
   "main": "lib/vk-dirty-api.js",
   "scripts": {
-    "test": "mocha -t 30000 --compilers js:babel-register",
+    "build": "babel -d lib src",
     "docs": "jsdoc -c .jsdocrc",
-    "prepublish": "eslint ./lib && npm test",
-    "coverage": "istanbul cover _mocha"
+    "lint": "eslint ./src",
+    "test": "mocha --compilers js:babel-register",
+    "test:travis": "npm run coverage",
+    "coverage": "istanbul cover _mocha",
+    "prepublish": "npm run build",
+    "prebuild": "npm test",
+    "pretest": "npm run lint"
   },
   "repository": {
     "type": "git",
