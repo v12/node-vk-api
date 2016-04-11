@@ -30,7 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "cheerio": "^0.20.0",
-    "fs-jetpack": "^0.7.0",
+    "fs-jetpack": "^0.8.0",
     "is-plain-object": "^2.0.1",
     "joi": "^8.0.1",
     "request": "^2.67.0",
