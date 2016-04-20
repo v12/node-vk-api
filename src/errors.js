@@ -19,7 +19,8 @@ const util = require('util');
  * @constructor
  */
 const VKAPIError = function (error_code, error_msg) {
-    Error.apply(this, arguments);
+    if (!(this instanceof VKAPIError))
+        return new VKAPIError(error_code, error_msg);
 
     /**
      * VK API error code
@@ -44,7 +45,8 @@ util.inherits(VKAPIError, Error);
  * @constructor
  */
 const VKAuthError = function () {
-    Error.apply(this, arguments);
+    if (!(this instanceof VKAuthError))
+        return new VKAuthError();
 
     if (Error.captureStackTrace)
         Error.captureStackTrace(this, this.constructor);

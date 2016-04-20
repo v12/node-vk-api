@@ -169,7 +169,7 @@ describe('vk-dirty-api', function () {
 
     describe('errors', function () {
         [ 'VKAPIError', 'VKAuthError' ].forEach(e => it('should expose custom error ' + e, function () {
-            expect(vk).to.respondTo(e);
+            expect(vk[e]()).to.be.an.instanceOf(Error);
             expect(vk).to.itself.respondTo(e);
         }));
 
