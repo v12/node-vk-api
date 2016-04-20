@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.0
+### Breaking changes
+* Update `request-promise` to 3.0.0 from 2.0.0
+
+### Changes
+* Update `fs-jetpack` to 0.8.0 from 0.7.0
+* Update `nock` to 8.0.0 from 5.2.1
+* Update `eslint` to 2.5.0 from 1.10.3
+* Update `joi` to 8.0.1 from 7.2.2
+* Update `cheerio` to 0.20.0 from 0.19.0
+
 ## 2.1.0
 * Add missing `phone` param for non-object configuration (now signature is `vk.token(client_id, login, pass, phone)`)
 * Add ESLint code style checks
