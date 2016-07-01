@@ -45,7 +45,7 @@
     "babel-register": "^6.4.3",
     "chai": "^3.4.1",
     "chai-as-promised": "^5.1.0",
-    "eslint": "^2.5.0",
+    "eslint": "^3.0.0",
     "isparta": "^4.0.0",
     "jsdoc": "^3.4.0",
     "mocha": "^2.5.0",
