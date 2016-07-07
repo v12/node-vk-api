@@ -29,7 +29,7 @@
   "author": "Nikita <dr.evil@krtn.eu>",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^0.20.0",
+    "cheerio": "^0.21.0",
     "fs-jetpack": "^0.9.0",
     "is-plain-object": "^2.0.1",
     "joi": "^8.0.1",
