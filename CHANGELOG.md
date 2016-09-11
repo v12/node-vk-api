@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.0.2
+### Changes
+* Switch to [Standard](http://standardjs.com/) code style
+* Update example usage in README
+* Refactor built-in token file storage to be an ES2015 class
+* Use `babel-eslint` parser in ESLint
+* Update `babel-cli` to 6.8.0 from 6.4.5
+* Update `fs-jetpack` to 0.9.0 from 0.8.0
+* Update `mocha` to 3.0.2 from 2.3.4
+* Update `eslint` to 3.5.0 from 2.5.0
+* Update `request-promise` to 4.0.2 from 3.0.0
+* Update `joi` to 9.0.4 from 8.0.1
+* Update `cheerio` to 0.22.0 from 0.20.0
+
+## 3.0.1
+### Changes
+* Optimize library-specific error constructors
+
 ## 3.0.0
 ### Breaking changes
 * Update `request-promise` to 3.0.0 from 2.0.0
