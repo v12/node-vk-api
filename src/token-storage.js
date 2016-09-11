@@ -6,27 +6,31 @@
  * @module vkDirtyAPI/TokenStorage
  **/
 
-var fs = require('fs-jetpack')
+const fs = require('fs-jetpack')
 
-/**
- * @param {String} [file] Path to the file where token is stored
- * @constructor
- */
-function TokenStorage (file) {
-  this.storageFile = file || process.cwd() + '/.vk-token'
-}
+class TokenStorage {
+  /**
+   * @param {String} [path] Path to the file where token is stored
+   */
+  constructor (path = process.cwd() + '/.vk-token') {
+    this.storageFile = path
+  }
 
-TokenStorage.prototype.setStorageFile = function (file) { this.storageFile = file }
+  setStorageFile (path) {
+    this.storageFile = path
+  }
 
-TokenStorage.prototype.getToken = function () { return fs.readAsync(this.storageFile) }
+  getToken () {
+    return fs.readAsync(this.storageFile)
+  }
 
-TokenStorage.prototype.setToken = function (token) {
-  return this.getToken()
-    .then(storedToken => {
+  setToken (token) {
+    return this.getToken().then(storedToken => {
       if (storedToken !== token) {
         return fs.writeAsync(this.storageFile, token)
       }
     })
+  }
 }
 
 module.exports = TokenStorage
