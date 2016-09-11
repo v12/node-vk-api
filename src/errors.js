@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * Custom errors used within module. All of the errors are exposed on the VK
@@ -7,34 +7,36 @@
  * @module vkDirtyAPI/Errors
  */
 
-const util = require('util');
+const util = require('util')
 
 /**
  * VK API error
  *
- * @param {Number} error_code Error code as returned by API
- * @param {String} error_msg Error message as returned by API
+ * @param {Number} code Error code as returned by API
+ * @param {String} message Error message as returned by API
  *
  * @extends Error
  * @constructor
  */
-const VKAPIError = function (error_code, error_msg) {
-    if (!(this instanceof VKAPIError))
-        return new VKAPIError(error_code, error_msg);
+const VKAPIError = function (code, message) {
+  if (!(this instanceof VKAPIError)) {
+    return new VKAPIError(code, message)
+  }
 
-    /**
-     * VK API error code
-     */
-    this.error_code = error_code;
-    /**
-     * VK API error message
-     */
-    this.error_msg = error_msg;
+  /**
+   * VK API error code
+   */
+  this.error_code = code
+  /**
+   * VK API error message
+   */
+  this.error_msg = message
 
-    if (Error.captureStackTrace)
-        Error.captureStackTrace(this, this.constructor);
-};
-util.inherits(VKAPIError, Error);
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, this.constructor)
+  }
+}
+util.inherits(VKAPIError, Error)
 
 /**
  * VK authentication error
@@ -45,22 +47,23 @@ util.inherits(VKAPIError, Error);
  * @constructor
  */
 const VKAuthError = function () {
-    if (!(this instanceof VKAuthError))
-        return new VKAuthError();
+  if (!(this instanceof VKAuthError)) {
+    return new VKAuthError()
+  }
 
-    if (Error.captureStackTrace)
-        Error.captureStackTrace(this, this.constructor);
-};
-util.inherits(VKAuthError, Error);
-
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, this.constructor)
+  }
+}
+util.inherits(VKAuthError, Error)
 
 module.exports = {
-    /**
-     * @see VKAuthError
-     */
-    VKAuthError,
-    /**
-     * @see VKAPIError
-     */
-    VKAPIError
-};
+  /**
+   * @see VKAuthError
+   */
+  VKAuthError,
+  /**
+   * @see VKAPIError
+   */
+  VKAPIError
+}

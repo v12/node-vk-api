@@ -1,1 +1,1 @@
-module.exports = require('./lib/token-storage');
+module.exports = require('./lib/token-storage')

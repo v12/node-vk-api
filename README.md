@@ -1,6 +1,7 @@
 # vk-dirty-api
 
-[![Build Status](https://travis-ci.org/v12/node-vk-api.svg?branch=master)](https://travis-ci.org/v12/node-vk-api) [![Test Coverage](https://codeclimate.com/github/v12/node-vk-api/badges/coverage.svg)](https://codeclimate.com/github/v12/node-vk-api/coverage) [![Dependency Status](https://david-dm.org/v12/node-vk-api.svg)](https://david-dm.org/v12/node-vk-api)
+[![Build Status](https://travis-ci.org/v12/node-vk-api.svg?branch=master)](https://travis-ci.org/v12/node-vk-api) [![Test Coverage](https://codeclimate.com/github/v12/node-vk-api/badges/coverage.svg)](https://codeclimate.com/github/v12/node-vk-api/coverage) [![Dependency Status](https://david-dm.org/v12/node-vk-api.svg)](https://david-dm.org/v12/node-vk-api) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
 
 VK API for Node.js with authentication using login and password (the dirty way)
 
