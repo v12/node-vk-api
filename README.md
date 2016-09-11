@@ -14,25 +14,35 @@ Sometimes it is needed to use VK API directly from the Node app, however, using 
 
 ### Super simple to use
 ```javascript
-const vk = require('vk-dirty-api');
+const vk = require('vk-dirty-api')
 
 const credentials = {
-    client_id:    0,
-    login:        'user@example.com',
-    pass:         'your_super_secret_password',
-    phone:        '+74951234567',
-    tokenStorage: new vk.TokenStorage()
-};
+  client_id: 0, // application ID (available in app settings at https://vk.com/apps?act=manage)
+  login: 'user@example.com',
+  pass: 'your_super_secret_password',
+  phone: '+74951234567',
+  tokenStorage: new vk.TokenStorage() // built-in token storage that stores retrieved access token in file for
+                                      // further use
+}
 
+/**
+ * Retrieve access_token using credentials defined above
+ */
 vk.token(credentials)
-    .then(function (access_token) {
-        console.log('Successfully authenticated / access_token:', access_token);
-        
-        let api = vk.api(access_token);
-        
-        return api('account.getInfo', { fields: 'country' })
-            .then(info => console.log(info))
-            .catch(err => console.error('Unable to complete request', err));
-    })
-    .catch(err => console.error('Unable to authenticate', err));
+  .then(token => {
+    console.log(`Successfully authenticated (access_token: ${token})`)
+
+    /**
+     * Use built-in API call helper
+     */
+    const api = vk.api(token)
+
+    /**
+     * Request current account info
+     */
+    return api('account.getInfo', { fields: 'country' })
+      .then(info => console.log('Account info', info))
+      .catch(err => console.error('Unable to complete API request', err))
+  })
+  .catch(err => console.error('Unable to authenticate', err))
 ```
