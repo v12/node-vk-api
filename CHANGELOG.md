@@ -3,7 +3,7 @@
 ## 3.0.2
 ### Changes
 * Switch to [Standard](http://standardjs.com/) code style
-* Update example usage in README
+* Update example usage in [README](README.md)
 * Refactor built-in token file storage to be an ES2015 class
 * Use `babel-eslint` parser in ESLint
 * Update `babel-cli` to 6.8.0 from 6.4.5
