@@ -1,5 +1,7 @@
 # vk-dirty-api
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/v12/node-vk-api.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/v12/node-vk-api.svg?branch=master)](https://travis-ci.org/v12/node-vk-api) [![Test Coverage](https://codeclimate.com/github/v12/node-vk-api/badges/coverage.svg)](https://codeclimate.com/github/v12/node-vk-api/coverage) [![Dependency Status](https://david-dm.org/v12/node-vk-api.svg)](https://david-dm.org/v12/node-vk-api) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 
